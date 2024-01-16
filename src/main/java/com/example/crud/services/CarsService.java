@@ -19,4 +19,11 @@ public class CarsService {
     public Optional<Car> findById(int Id){
          return carRepository.findById(Id);
     }
+    public void save(Car car){
+        Optional<Car> exactCar = carRepository.findByProductionYear(car.getProductionYear());
+        if(exactCar.isPresent()){
+            throw new RuntimeException("Car from this production year exists");
+        }
+        carRepository.save(car);
+    }
 }

@@ -2,9 +2,7 @@ package com.example.crud.rest;
 
 import com.example.crud.entity.Car;
 import com.example.crud.services.CarsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,11 @@ public class CarsController {
     @GetMapping("/cars/{carId}")
     public Car getCarById(@PathVariable int carId){
         return carService.findById(carId).orElseThrow(()->new RuntimeException("Car not found"));
+    }
+    @PostMapping("/cars")
+    public Car addCar(@RequestBody Car car){
+        car.setId(0);
+        carService.save(car);
+        return car;
     }
 }
