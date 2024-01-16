@@ -1,15 +1,15 @@
 package com.example.crud.rest;
 
 import com.example.crud.entity.Car;
-import com.example.crud.services.CarsService;
+import com.example.crud.services.CarsServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class CarsController {
-    private CarsService carService;
-    public CarsController(CarsService carService){
+    private CarsServiceImpl carService;
+    public CarsController(CarsServiceImpl carService){
         this.carService = carService;
     }
     @GetMapping("/cars")
@@ -23,7 +23,14 @@ public class CarsController {
     @PostMapping("/cars")
     public Car addCar(@RequestBody Car car){
         car.setId(0);
-        carService.save(car);
-        return car;
+        return carService.create(car);
+    }
+    @PutMapping("/cars")
+    public Car updateCar(@RequestBody Car car){
+        return carService.update(car);
+    }
+    @DeleteMapping("/cars/{carId}")
+    public void deleteCarById(@PathVariable int carId){
+        carService.deleteById(carId);
     }
 }
