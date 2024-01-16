@@ -1,6 +1,7 @@
 package com.example.crud.services;
 
 import com.example.crud.entity.Car;
+import com.example.crud.exceptions.CarException;
 import com.example.crud.repositories.CarsRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,14 @@ public class CarsServiceImpl implements CarsService{
         return carRepository.findAll();
     }
     @Override
-    public Optional<Car> findById(int Id){
-         return carRepository.findById(Id);
+    public Car findById(int Id){
+        return carRepository.findById(Id).orElseThrow(() -> new CarException("Car doesn't exist in database"));
     }
     @Override
     public Car create(Car car){
         Optional<Car> exactCar = carRepository.findByProductionYear(car.getProductionYear());
         if(exactCar.isPresent()){
-            throw new RuntimeException("Car from this production year exists");
+            throw new CarException("Car from this production year exists");
         }
         return carRepository.save(car);
     }

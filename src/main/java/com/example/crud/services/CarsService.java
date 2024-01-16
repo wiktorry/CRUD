@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CarsService {
     List<Car> findAll();
-    Optional<Car> findById(int Id);
+    Car findById(int Id);
     Car create(Car car);
     Car update(Car car);
     void deleteById(int Id);

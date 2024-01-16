@@ -18,7 +18,7 @@ public class CarsController {
     }
     @GetMapping("/cars/{carId}")
     public Car getCarById(@PathVariable int carId){
-        return carService.findById(carId).orElseThrow(()->new RuntimeException("Car not found"));
+        return carService.findById(carId);
     }
     @PostMapping("/cars")
     public Car addCar(@RequestBody Car car){
