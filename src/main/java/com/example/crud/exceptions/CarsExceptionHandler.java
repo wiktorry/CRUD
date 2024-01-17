@@ -12,13 +12,11 @@ public class CarsExceptionHandler {
             CarsExceptionResponse exception = new CarsExceptionResponse(exc.getMessage(), HttpStatus.NOT_FOUND.value(), System.currentTimeMillis());
             return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
         }
-        else if(exc instanceof InvalidCarException) {
+        if(exc instanceof InvalidCarException) {
             CarsExceptionResponse exception = new CarsExceptionResponse(exc.getMessage(), HttpStatus.BAD_REQUEST.value(), System.currentTimeMillis());
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
         }
-        else{
-            CarsExceptionResponse exception = new CarsExceptionResponse(exc.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value(), System.currentTimeMillis());
-            return new ResponseEntity<>(exception, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        CarsExceptionResponse exception = new CarsExceptionResponse(exc.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value(), System.currentTimeMillis());
+        return new ResponseEntity<>(exception, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

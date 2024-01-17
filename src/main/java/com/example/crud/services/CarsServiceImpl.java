@@ -1,6 +1,7 @@
 package com.example.crud.services;
 
 import com.example.crud.entity.Car;
+import com.example.crud.entity.User;
 import com.example.crud.exceptions.CarNotFoundException;
 import com.example.crud.exceptions.InvalidCarException;
 import com.example.crud.repositories.CarsRepository;
@@ -29,7 +30,10 @@ public class CarsServiceImpl implements CarsService{
         if(exactCar.isPresent()){
             throw new InvalidCarException("Car from this production year exists");
         }
-        return carRepository.save(car);
+        Car theCar = carRepository.save(car);
+        User user = theCar.getUser();
+        user.addCar(theCar);
+        return theCar;
     }
     @Override
     public Car update(Car car) {

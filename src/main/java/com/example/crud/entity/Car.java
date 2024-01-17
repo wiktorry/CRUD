@@ -1,5 +1,6 @@
 package com.example.crud.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,10 @@ public class Car {
     private String model;
     @Column(name = "productionYear")
     private int productionYear;
+    @JsonIgnore
+    @ManyToOne(cascade ={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "userId")
+    private User user;
     public Car(){
 
     }
@@ -54,5 +59,13 @@ public class Car {
 
     public void setProductionYear(int productionYear) {
         this.productionYear = productionYear;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="users")
 public class User {
@@ -20,6 +23,9 @@ public class User {
     @Email
     @Column(name = "email")
     private String email;
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Car> cars;
     public User(){
 
     }
@@ -59,5 +65,18 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+    public void addCar(Car car){
+        if(cars == null){
+            cars = new ArrayList<>();
+        }
+        cars.add(car);
     }
 }
