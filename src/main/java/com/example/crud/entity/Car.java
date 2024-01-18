@@ -1,5 +1,6 @@
 package com.example.crud.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -16,7 +17,7 @@ public class Car {
     private String model;
     @Column(name = "productionYear")
     private int productionYear;
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne(cascade ={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "userId")
     private User user;

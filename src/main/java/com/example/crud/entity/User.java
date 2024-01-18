@@ -1,5 +1,6 @@
 package com.example.crud.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -23,6 +24,7 @@ public class User {
     @Email
     @Column(name = "email")
     private String email;
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Car> cars;

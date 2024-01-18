@@ -1,5 +1,6 @@
 package com.example.crud.services;
 
+import com.example.crud.entity.Car;
 import com.example.crud.entity.User;
 import com.example.crud.exceptions.CarNotFoundException;
 import com.example.crud.exceptions.InvalidCarException;
@@ -36,11 +37,16 @@ public class UsersServiceImpl implements UsersService{
 
     @Override
     public User update(User user) {
-        return null;
+        return userRepository.save(user);
     }
 
     @Override
     public void deleteById(int Id) {
-
+        User user = userRepository.findById(Id).orElseThrow(() -> new CarNotFoundException("User doesn't exist"));
+        List<Car> cars = user.getCars();
+        for(Car car : cars){
+            car.setUser(null);
+        }
+        userRepository.deleteById(Id);
     }
 }

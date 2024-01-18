@@ -30,10 +30,7 @@ public class CarsServiceImpl implements CarsService{
         if(exactCar.isPresent()){
             throw new InvalidCarException("Car from this production year exists");
         }
-        Car theCar = carRepository.save(car);
-        User user = theCar.getUser();
-        user.addCar(theCar);
-        return theCar;
+        return carRepository.save(car);
     }
     @Override
     public Car update(Car car) {
@@ -41,6 +38,7 @@ public class CarsServiceImpl implements CarsService{
     }
     @Override
     public void deleteById(int Id) {
+        Car car = carRepository.findById(Id).orElseThrow(()-> new CarNotFoundException("Car doesn't exist in database"));
         carRepository.deleteById(Id);
     }
 }

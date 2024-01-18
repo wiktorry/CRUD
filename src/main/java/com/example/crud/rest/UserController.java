@@ -28,4 +28,12 @@ public class UserController {
         user.setId(0);
         return usersService.create(user);
     }
+    @PutMapping
+    private User updateUser(@RequestBody @Valid User user){
+        return usersService.update(user);
+    }
+    @DeleteMapping("/{userId}")
+    private void deleteUser(@PathVariable int userId){
+        usersService.deleteById(userId);
+    }
 }
